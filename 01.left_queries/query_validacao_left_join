@@ -1,0 +1,39 @@
+-- Validação do join da tabela final
+SELECT
+  COUNT(*) AS total_clientes,
+
+  -- preenchidos
+  COUNT(age) AS age_preenchido,
+  COUNT(last_month_salary) AS last_month_salary_preenchido,
+  COUNT(number_dependents) AS number_dependents_preenchido,
+  COUNT(count_real_estate) AS count_real_estate_preenchido,
+  COUNT(count_others) AS count_others_preenchido,
+  COUNT(more_90_days_overdue) AS more_90_days_overdue_preenchido,
+  COUNT(number_times_delayed_payment_loan_30_59_days) AS delayed_30_59_preenchido,
+  COUNT(number_times_delayed_payment_loan_60_89_days) AS delayed_60_89_preenchido,
+  COUNT(using_lines_not_secured_personal_assets) AS limite_preenchido,
+  COUNT(debt_ratio) AS debt_ratio_preenchido,
+  COUNT(default_flag) AS default_flag_preenchido,
+  COUNT(salario_ajustado_iqr) AS salario_ajustado_iqr_preenchido,
+  COUNT(limite_credito_iqr) AS limite_credito_iqr_preenchido,
+  COUNT(total_delays) AS total_delays_preenchido,
+  COUNT(count_total_loans) AS count_total_loans_preenchido,
+
+  -- nulos
+  SUM(IF(age IS NULL, 1, 0)) AS null_age,
+  SUM(IF(last_month_salary IS NULL, 1, 0)) AS null_last_month_salary,
+  SUM(IF(number_dependents IS NULL, 1, 0)) AS null_number_dependents,
+  SUM(IF(count_real_estate IS NULL, 1, 0)) AS null_count_real_estate,
+  SUM(IF(count_others IS NULL, 1, 0)) AS null_count_others,
+  SUM(IF(more_90_days_overdue IS NULL, 1, 0)) AS null_more_90_days_overdue,
+  SUM(IF(number_times_delayed_payment_loan_30_59_days IS NULL, 1, 0)) AS null_delayed_30_59,
+  SUM(IF(number_times_delayed_payment_loan_60_89_days IS NULL, 1, 0)) AS null_delayed_60_89,
+  SUM(IF(using_lines_not_secured_personal_assets IS NULL, 1, 0)) AS null_limite,
+  SUM(IF(debt_ratio IS NULL, 1, 0)) AS null_debt_ratio,
+  SUM(IF(default_flag IS NULL, 1, 0)) AS null_default_flag,
+  SUM(IF(salario_ajustado_iqr IS NULL, 1, 0)) AS null_salario_ajustado_iqr,
+  SUM(IF(limite_credito_iqr IS NULL, 1, 0)) AS null_limite_credito_iqr,
+  SUM(IF(total_delays IS NULL, 1, 0)) AS null_total_delays,
+  SUM(IF(count_total_loans IS NULL, 1, 0)) AS null_count_total_loans
+
+FROM `projeto-risco-relativo-banco.dados_projeto3.tabela_final_unificada` AS tabela_unificada;
