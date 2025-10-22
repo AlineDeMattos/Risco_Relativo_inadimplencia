@@ -1,0 +1,20 @@
+-- TABELA TEMPORÁRIA COM WITH (TABELA AUXILIAR NÃO ALTERA A TABELA DO JOIN ORIGINAL)
+
+
+WITH tratamento_nulos_pos_join AS (
+    SELECT
+        *,
+        IFNULL(count_real_estate, 0) AS count_real_estate_limpo,
+        IFNULL(count_total_loans, 0) AS count_total_loans_limpo,
+        IFNULL(count_others, 0) AS count_others_limpo
+
+    FROM
+        `projeto-risco-relativo-banco.dados_projeto3.tabela_final_unificada`
+)
+SELECT
+    user_id,
+    count_real_estate_limpo,
+    count_total_loans_limpo,
+    count_others_limpo
+FROM
+    tratamento_nulos_pos_join;
