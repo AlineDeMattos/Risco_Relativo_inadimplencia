@@ -1,0 +1,27 @@
+CREATE OR REPLACE TABLE
+  `projeto-risco-relativo-banco.dados_projeto3.tabela_final_unificada`
+AS
+SELECT
+    T1.user_id,             
+    T1.* EXCEPT(user_id),   
+    T2.* EXCEPT(user_id),   
+    T3.* EXCEPT(user_id),   
+    T4.* EXCEPT(user_id)    
+FROM
+    -- Tabela Base (T1): user_info. Esta tabela define o número de linhas finais.
+    `projeto-risco-relativo-banco.dados_projeto3.user_info_TRATADO` AS T1
+    
+LEFT JOIN -- MUDANÇA
+    -- Tabela 2: default
+    `projeto-risco-relativo-banco.dados_projeto3.default_TRATADO` AS T2
+    ON T1.user_id = T2.user_id 
+
+LEFT JOIN -- MUDANÇA
+    -- Tabela 3: loans_detail
+    `projeto-risco-relativo-banco.dados_projeto3.loans_detail_TRATADO` AS T3
+    ON T1.user_id = T3.user_id 
+
+LEFT JOIN -- MUDANÇA (Esta é a crucial para ver os nulos de count_real_estate)
+    -- Tabela 4 (agregada): loans_outstanding
+    `projeto-risco-relativo-banco.dados_projeto3.loans_outstanding_pivot_TRATADO` AS T4
+    ON T1.user_id = T4.user_id
